@@ -1,4 +1,7 @@
 # Cyclemob
+A work in progress...
+
+This is gonna be a progressive web app for the [OSM Cycle Map](https://www.opencyclemap.org/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
