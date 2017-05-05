@@ -1,18 +1,32 @@
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
-import { AppComponent } from './app.component';
+import {
+  MdButtonModule,
+  MdCheckboxModule,
+  MdIconModule,
+  MdMenuModule,
+  MdToolbarModule,
+  } from '@angular/material';
+import { NgModule } from '@angular/core';
+import 'hammerjs';
+import { MapComponent } from './map/map.component';
+import { LeafletDirective } from '@asymmetrik/angular2-leaflet';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapComponent,
+    LeafletDirective
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MdButtonModule, MdCheckboxModule, MdMenuModule, MdIconModule, MdToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

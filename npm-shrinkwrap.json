@@ -1,0 +1,91 @@
+{
+  "name": "cyclemob",
+  "version": "0.0.0",
+  "dependencies": {
+    "@angular/animations": {
+      "version": "4.1.1",
+      "from": "@angular/animations@latest",
+      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.1.1.tgz"
+    },
+    "@angular/common": {
+      "version": "4.1.1",
+      "from": "@angular/common@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/common/-/common-4.1.1.tgz"
+    },
+    "@angular/compiler": {
+      "version": "4.1.1",
+      "from": "@angular/compiler@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-4.1.1.tgz"
+    },
+    "@angular/core": {
+      "version": "4.1.1",
+      "from": "@angular/core@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/core/-/core-4.1.1.tgz"
+    },
+    "@angular/forms": {
+      "version": "4.1.1",
+      "from": "@angular/forms@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-4.1.1.tgz"
+    },
+    "@angular/http": {
+      "version": "4.1.1",
+      "from": "@angular/http@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.1.1.tgz"
+    },
+    "@angular/material": {
+      "version": "2.0.0-beta.3",
+      "from": "@angular/material@latest",
+      "resolved": "https://registry.npmjs.org/@angular/material/-/material-2.0.0-beta.3.tgz"
+    },
+    "@angular/platform-browser": {
+      "version": "4.1.1",
+      "from": "@angular/platform-browser@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-4.1.1.tgz"
+    },
+    "@angular/platform-browser-dynamic": {
+      "version": "4.1.1",
+      "from": "@angular/platform-browser-dynamic@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.1.1.tgz"
+    },
+    "@angular/router": {
+      "version": "4.1.1",
+      "from": "@angular/router@4.1.1",
+      "resolved": "https://registry.npmjs.org/@angular/router/-/router-4.1.1.tgz"
+    },
+    "@asymmetrik/angular2-leaflet": {
+      "version": "2.1.4",
+      "from": "asymmetrik/angular2-leaflet",
+      "resolved": "git+https://github.com/asymmetrik/angular2-leaflet.git#7d50ba1877dbbfebddcecdd1fb64c60e7e415a51"
+    },
+    "core-js": {
+      "version": "2.4.1",
+      "from": "core-js@>=2.4.1 <3.0.0",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.4.1.tgz"
+    },
+    "hammerjs": {
+      "version": "2.0.8",
+      "from": "hammerjs@latest",
+      "resolved": "https://registry.npmjs.org/hammerjs/-/hammerjs-2.0.8.tgz"
+    },
+    "leaflet": {
+      "version": "1.0.3",
+      "from": "leaflet@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/leaflet/-/leaflet-1.0.3.tgz"
+    },
+    "rxjs": {
+      "version": "5.3.1",
+      "from": "rxjs@>=5.1.0 <6.0.0",
+      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.3.1.tgz"
+    },
+    "symbol-observable": {
+      "version": "1.0.4",
+      "from": "symbol-observable@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz"
+    },
+    "zone.js": {
+      "version": "0.8.10",
+      "from": "zone.js@>=0.8.4 <0.9.0",
+      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.8.10.tgz"
+    }
+  }
+}

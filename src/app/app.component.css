@@ -1,0 +1,6 @@
+app-map {
+    height: calc(100% - 64px);
+    width: 100%;
+    background-color: lightcoral;
+    display: block;
+}
