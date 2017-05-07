@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { GeolocationService } from './geolocation/geolocation.service'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  
+  title = 'Cyclemob'
+
+  constructor(
+  	private geolocationService: GeolocationService
+  ) {}
+
+  locateUser() {
+  	this.geolocationService.updateLocation();
+  }
+
 }

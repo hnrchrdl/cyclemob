@@ -1,10 +1,15 @@
-<md-menu #appMenu="mdMenu">
+<!-- <md-menu #appMenu="mdMenu">
   <button md-menu-item> Settings </button>
   <button md-menu-item> Help </button>
-</md-menu>
+</md-menu> -->
+
 <md-toolbar>
-  <button md-icon-button [mdMenuTriggerFor]="appMenu">
+	{{title}}
+  <!-- <button md-icon-button [mdMenuTriggerFor]="appMenu">
     <md-icon>more_vert</md-icon>
+  </button> -->
+  <button md-icon-button (click)="locateUser()">
+    <md-icon>my_location</md-icon>
   </button>
 </md-toolbar>
 <app-map></app-map>

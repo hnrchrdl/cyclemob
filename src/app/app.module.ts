@@ -13,22 +13,27 @@ import {
 import { NgModule } from '@angular/core';
 import 'hammerjs';
 import { MapComponent } from './map/map.component';
-import { LeafletDirective } from '@asymmetrik/angular2-leaflet';
+import { LeafletModule } from '@asymmetrik/angular2-leaflet';
+import { GeolocationService } from './geolocation/geolocation.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent,
-    LeafletDirective
+    MapComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    MdButtonModule, MdCheckboxModule, MdMenuModule, MdIconModule, MdToolbarModule
+    LeafletModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    MdMenuModule,
+    MdIconModule,
+    MdToolbarModule
   ],
-  providers: [],
+  providers: [GeolocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
