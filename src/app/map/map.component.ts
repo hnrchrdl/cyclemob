@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { GeolocationService } from '../geolocation/geolocation.service'
-import * as L from 'leaflet'
-//import "../../../..thirdparty/L.TileLayerPixelFilter.js/leaflet-tileLayerPixelFilter.js"
-
-
+import 'leaflet'
+import './leaflet-tileLayerPixelFilter.js'
+declare var L; // avoid typescript errors with pixel filter lib
+ 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -22,10 +22,11 @@ export class MapComponent implements OnInit {
   ngOnInit() {
 
     // set initial map options
-    let tilelayer = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=61444b383bbc468dbd554f7257efd5f3', 
-    { 
-      maxZoom: 18, 
-      attribution: "Maps © Thunderforest, Data © OpenStreetMap contributors" 
+    let tilelayer = L.tileLayerPixelFilter('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=61444b383bbc468dbd554f7257efd5f3', {
+        matchRGBA: null,
+        missRGBA:  [ 255, 255, 255, 255 ],
+        //pixelCodes: [ [180, 0, 0] ],
+        crossOrigin: true
     })
     this.options = {
       layers: [ tilelayer ],
