@@ -5,12 +5,26 @@ import { Subject } from 'rxjs'
 export class GeolocationService {
 
 	location: any = new Subject()
+	watcher;
 
-  	constructor() { }
+	constructor() { }
+
+	watchPosition() {
+		this.watcher = navigator.geolocation.watchPosition(({coords, timestamp}) => {
+			console.log(coords);
+			let { latitude: lat, longitude: lng, accuracy } = coords
+			this.location.next({lat, lng, accuracy})
+		})
+	}
+
+	clearWatch() {
+		if(this.watcher) {
+			console.log('unwatch');
+			navigator.geolocation.clearWatch(this.watcher);
+		}
+	}
 
   	updateLocation() {
-  		
-  		console.log('updating location')
 
   		if ("geolocation" in navigator) {
 			/* geolocation is available */
@@ -24,13 +38,13 @@ export class GeolocationService {
 			}, (err) => {
 				alert('Error getting gelocation: ' + err)
 			}, options)
-			
+
 		} else {
 			/* geolocation IS NOT available */
-			
+
 			alert('Your browser does not support geolocation')
 		}
-  		
+
   	}
 
 }

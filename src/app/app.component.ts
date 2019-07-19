@@ -7,15 +7,17 @@ import { GeolocationService } from './geolocation/geolocation.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+
   title = 'Cyclemob'
+  watchMode: boolean = false
 
   constructor(
   	private geolocationService: GeolocationService
   ) {}
 
-  locateUser() {
-  	this.geolocationService.updateLocation();
+  toggleWatch() {
+    this.watchMode ? this.geolocationService.clearWatch() : this.geolocationService.watchPosition();
+    this.watchMode = !this.watchMode;
   }
 
 }

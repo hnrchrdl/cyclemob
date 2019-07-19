@@ -1,6 +1,27 @@
 app-map {
-    height: calc(100% - 64px);
-    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0 ;
     background-color: lightcoral;
     display: block;
+}
+button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    background: gray;
+    color: #333;
+    height: 40px;
+    width: 150px;
+    border: 2px solid #333;
+    background-color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+}
+button.active {
+    background-color: #ff3366;
+    color: #fff;
 }
