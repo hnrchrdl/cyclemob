@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
 
     this.options = {
       layers: [ baseLayer ],
-      zoom: 4,
+      zoom: 11,
       center: L.latLng({ lat: 40, lng: 15 })
     }
 
@@ -42,6 +42,8 @@ export class MapComponent implements OnInit {
       this.showPosition(currPosition, accuracy)  // create layer
     })
 
+    this.geolocationService.updateLocation();
+
   }
 
   showPosition(pos: L.LatLng, accuracy: number) {
@@ -54,7 +56,7 @@ export class MapComponent implements OnInit {
         iconAnchor: [ 13, 41 ],
       })
     });
-    let accuracyIndicatorLayer = L.circle(pos, { radius: accuracy, fillOpacity: 0.1, opacity: 0.1 })
+    let accuracyIndicatorLayer = L.circle(pos, { radius: accuracy })
 
     this.layers = [positionMarkerLayer, accuracyIndicatorLayer]    // add layers to map
 

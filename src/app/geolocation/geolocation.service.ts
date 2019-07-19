@@ -11,15 +11,21 @@ export class GeolocationService {
 
 	watchPosition() {
 		this.watcher = navigator.geolocation.watchPosition(({coords, timestamp}) => {
-			console.log(coords);
+			// console.log(coords);
 			let { latitude: lat, longitude: lng, accuracy } = coords
-			this.location.next({lat, lng, accuracy})
+			this.location.next({lat, lng, accuracy});
+
+			// cache nearby vector tiles if accuracy is within 10km
+			// if (!window['tilesCached'] && coords.accuracy <= window['cacheRadius']) {
+			// 	window['requestTiles'](window['tileSrc'], window['tileLayer'].createTile(coords), window['zoomRangeCache']);
+			// 	window['tilesCached'] = true;
+			//  }
 		})
 	}
 
 	clearWatch() {
 		if(this.watcher) {
-			console.log('unwatch');
+			// console.log('unwatch');
 			navigator.geolocation.clearWatch(this.watcher);
 		}
 	}
