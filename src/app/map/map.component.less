@@ -83,3 +83,26 @@
     }
     transition: top .3s ease-in-out;
 }
+.route {
+    @media(min-width: 1200px) {
+        display: none;
+    }
+    font-size: .8em;
+    color: #555;
+    position: absolute;
+    top: 0;
+    height: 28px;
+    background: rgba(255,255,255,.9);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 999;
+    .info-item {
+        padding: 0 5px;
+    }
+    &.down {
+        top: 28px;
+    }
+    transition: top .3s ease-in-out;
+}

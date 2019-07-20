@@ -25,6 +25,10 @@ export class MapComponent implements OnInit {
   positionMarkerLayer: L.Marker;
   accuracyIndicatorLayer: L.Circle;
 
+  route: L.GeoJSON;
+  routeDistance: number;
+  routeDuration: string;
+
   constructor(private geolocationService: GeolocationService) { }
 
   ngOnInit() {
@@ -59,14 +63,11 @@ export class MapComponent implements OnInit {
     this.map = map;
     L.control.scale({ imperial: false}).addTo(this.map);
     this.map.on('zoomend', this.onZoomEnd)
+    this.map.on('contextmenu', this.onMapLongpress)
   }
 
   showPosition = (pos: L.LatLng, accuracy: number) => {
 
-    // const iconUrl = this.heading ? 'assets/icons/icon-arrow_40.png' : 'assets/marker-icon.png';
-    // const shadowUrl = this.heading ? null : 'assets/marker-shadow.png';
-    // const iconSize = this.heading ? [40, 40] : [ 25, 41 ];
-    // const iconAnchor = this.heading ?  [20, 20] : [ 13, 41 ];
     const iconUrl = 'assets/marker-icon.png';
     const shadowUrl = 'assets/marker-shadow.png';
     const iconSize = [ 25, 41 ];
@@ -90,22 +91,7 @@ export class MapComponent implements OnInit {
       this.positionMarkerLayer.setIcon(icon);
       this.accuracyIndicatorLayer.setLatLng(pos);
       this.accuracyIndicatorLayer.setRadius(accuracy);
-      // console.log(this.positionMarkerLayer.getElement())
-      // if(this.heading != null) {
-      //   const element = this.positionMarkerLayer.getElement();
-      //   const origTransform = element.style.transform;
-      //   element.style.transform =  origTransform + ` rotate(${this.heading - 45}deg)`;
-      // }
     }
-
-
-    // const arrowMarker = document.getElementsByClassName('.icon-arrow');
-    // if(arrowMarker.length) {
-    //   const transform = arrowMarker[0].style.transform;
-    //   const rotate = `rotate(${this.heading - 45}deg)`;
-    //   console.log('current', transform, 'rotate', rotate  )
-    //   arrowMarker[0].style.transform = transform + ' ' + rotate;
-    // }
   }
 
   onZoom = (level: number) => {
@@ -136,6 +122,35 @@ export class MapComponent implements OnInit {
 
   onZoomEnd = () => {
     this.zoom = this.map.getZoom();
+  }
+
+  onMapLongpress = (e) => {
+    const target = e.latlng;
+    this.geolocationService.getDirection(this.currPosition, target).then((data: any) => {
+      if(data) {
+        const summary = (data.features[0].properties.summary);
+        this.routeDistance = Math.round(summary.distance / 1000 * 10) / 10 ;
+        this.routeDuration = new Date(summary.duration * 1000).toISOString().substr(11, 8);
+        if (this.route) {
+          this.map.removeLayer(this.route)
+        }
+        this.route = L.geoJSON(data, {
+          style: function (feature) {
+              return {
+                color: '#e74c3c',
+                'width': 10,
+                'opacity': 0.6,
+              };
+          }
+        });
+        this.route.addTo(this.map)
+    }
+    })
+  }
+
+  onRouteRemove = () => {
+    this.map.removeLayer(this.route);
+    this.route = null;
   }
 
 }

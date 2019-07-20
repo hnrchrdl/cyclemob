@@ -8,6 +8,9 @@ export class GeolocationService {
 	watcher: any;
 	updatingLocation = new Subject();
 
+	key = '5b3ce3597851110001cf62487a38cbfb00b143529d810eb788844d8d';
+	apiBase = 'https://api.openrouteservice.org';
+
 	constructor() { }
 
 	watchPosition = () => {
@@ -61,6 +64,16 @@ export class GeolocationService {
 
 	  toggleWatch = () => {
 		  this.watcher ? this.clearWatch() : this.watchPosition();
+	  }
+
+	  getDirection = (start: {lat: number, lng: number }, end: {lat: number, lng: number }, mode = 'cycling-regular') => {
+		const url = `${this.apiBase}/v2/directions/${mode}?api_key=${this.key}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
+		return fetch(url).then(response => {
+			if(response.ok) {
+				return response.json();
+			}
+			return null;
+		})
 	  }
 
 }

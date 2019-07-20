@@ -22,6 +22,17 @@
         <i  class="fa fa-tachometer-alt"></i><span *ngIf="speed !== null"> {{speed}} km/h</span>
     </span>
 </div>
+<div *ngIf="route" [class]="['route', isFollowing() ? 'down' : ''].join(' ')">
+    <span class="info-item">
+        <i class="heading fa fa-route"></i> {{this.routeDistance}} km
+    </span>
+    <span class="info-item">
+        <i class="heading fa fa-duration"></i> {{this.routeDuration}} min
+    </span>
+    <span class="info-item" (click)="onRouteRemove()">
+        <i class="fa fa-times"></i>
+    </span>
+</div>
 <div class="follow-control zoom"  >
     <div [class]="['btn', 'follow-item','follow-btn', isFollowing() ? 'active': ''].join(' ')" (click)="onToggleFollow()">
         <i class="fa fa-location-arrow"></i>
