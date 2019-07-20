@@ -29,5 +29,9 @@ button {
 button.active {
     text-decoration: none;
     color: #111;
-
+}
+@media(max-width: 1200px) {
+    button {
+        display: none;
+    }
 }

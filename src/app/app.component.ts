@@ -16,8 +16,7 @@ export class AppComponent {
   ) {}
 
   toggleWatch() {
-    this.watchMode ? this.geolocationService.clearWatch() : this.geolocationService.watchPosition();
-    this.watchMode = !this.watchMode;
+    this.geolocationService.toggleWatch();
   }
 
 }

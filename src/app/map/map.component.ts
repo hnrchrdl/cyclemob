@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { GeolocationService } from '../geolocation/geolocation.service'
 import 'leaflet'
+import { MdGridTileHeaderCssMatStyler } from '@angular/material/typings/grid-list/grid-tile';
 declare var L; // avoid typescript errors with pixel filter lib
 
 @Component({
@@ -27,7 +28,7 @@ export class MapComponent implements OnInit {
     this.options = {
       layers: [ baseLayer ],
       zoom: 11,
-      center: L.latLng({ lat: 40, lng: 15 })
+      center: L.latLng({ lat: 50, lng: 15 })
     }
 
     // set inital layers
@@ -60,6 +61,28 @@ export class MapComponent implements OnInit {
 
     this.layers = [positionMarkerLayer, accuracyIndicatorLayer]    // add layers to map
 
+  }
+
+  onZoom = (what: string) => {
+    switch(what) {
+      case 'near':
+          this.zoom = 14;
+          break;
+      case 'mid':
+          this.zoom = 12;
+          break;
+      case 'far':
+          this.zoom = 9;
+          break;
+    }
+  }
+
+  onToggleFollow() {
+    this.geolocationService.toggleWatch();
+  }
+
+  isFollowing() {
+    return Boolean(this.geolocationService.watcher);
   }
 
 }

@@ -1,0 +1,50 @@
+.zoom-control {
+    @media(min-width: 1200px) {
+        display: none;
+    }
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    z-index: 999;
+    background: #fff;
+    display: flex;
+    color: #555;
+    font-size: .7em;
+    .zoom {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover, &:active{
+            color:black;
+          }
+        &.zoom-far {
+            border-right: 1px solid #eee;
+        }
+        &.zoom-near {
+            border-left: 1px solid #eee;
+        }
+    }
+}
+.follow-control {
+    @media(min-width: 1200px) {
+        display: none;
+    }
+    position: absolute;
+    bottom: 50px;
+    height: 50px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    font-size: .7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: line-through;
+    &.active {
+        text-decoration: none;
+    }
+}

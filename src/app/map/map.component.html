@@ -1,5 +1,5 @@
-<div 
-	leaflet 
+<div
+	leaflet
 	style="height: 100%;"
     [leafletOptions]="options"
     [leafletCenter]="center"
@@ -7,4 +7,12 @@
     [leafletLayers]="layers"
     [leafletFitBounds]="fitBounds"
 >
+</div>
+<div class="follow-control zoom" [class]="isFollowing() ? 'follow-control zoom active': 'follow-control zoom'" (click)="onToggleFollow()">
+    <div class="zoom">{{isFollowing() ? 'follow: on' : 'follow'}}</div>
+</div>
+<div class="zoom-control">
+    <span class="zoom zoom-far" (click)="onZoom('far')">region</span>
+    <span class="zoom zoom-mid" (click)="onZoom('mid')">city</span>
+    <span class="zoom zoom-near" (click)="onZoom('near')">street</span>
 </div>

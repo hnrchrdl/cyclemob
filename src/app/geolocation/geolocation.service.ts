@@ -27,6 +27,7 @@ export class GeolocationService {
 		if(this.watcher) {
 			// console.log('unwatch');
 			navigator.geolocation.clearWatch(this.watcher);
+			this.watcher = undefined;
 		}
 	}
 
@@ -50,7 +51,10 @@ export class GeolocationService {
 
 			alert('Your browser does not support geolocation')
 		}
+	  }
 
-  	}
+	  toggleWatch() {
+		  this.watcher ? this.clearWatch() : this.watchPosition();
+	  }
 
 }
