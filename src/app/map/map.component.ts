@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { GeolocationService } from '../geolocation/geolocation.service'
 import 'leaflet'
-import { MdGridTileHeaderCssMatStyler } from '@angular/material/typings/grid-list/grid-tile';
 declare var L; // avoid typescript errors with pixel filter lib
 
 @Component({
@@ -63,17 +62,11 @@ export class MapComponent implements OnInit {
 
   }
 
-  onZoom = (what: string) => {
-    switch(what) {
-      case 'near':
-          this.zoom = 14;
-          break;
-      case 'mid':
-          this.zoom = 12;
-          break;
-      case 'far':
-          this.zoom = 9;
-          break;
+  onZoom = (level: number) => {
+    if(this.zoom === level) {
+      this.zoom = level + 1;
+    } else {
+      this.zoom = level;
     }
   }
 
@@ -83,6 +76,10 @@ export class MapComponent implements OnInit {
 
   isFollowing() {
     return Boolean(this.geolocationService.watcher);
+  }
+
+  onCenter() {
+    this.geolocationService.updateLocation();
   }
 
 }

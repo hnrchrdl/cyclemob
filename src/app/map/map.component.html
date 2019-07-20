@@ -2,17 +2,18 @@
 	leaflet
 	style="height: 100%;"
     [leafletOptions]="options"
-    [leafletCenter]="center"
-    [leafletZoom]="zoom"
+    [(leafletCenter)]="center"
+    [(leafletZoom)]="zoom"
     [leafletLayers]="layers"
     [leafletFitBounds]="fitBounds"
 >
 </div>
-<div class="follow-control zoom" [class]="isFollowing() ? 'follow-control zoom active': 'follow-control zoom'" (click)="onToggleFollow()">
-    <div class="zoom">{{isFollowing() ? 'follow: on' : 'follow'}}</div>
+<div class="follow-control zoom"  >
+    <div [class]="['follow-item','follow-btn', isFollowing() ? 'active': ''].join(' ')" (click)="onToggleFollow()">follow</div>
+    <div class="follow-item center-btn" (click)="onCenter()">center</div>
 </div>
 <div class="zoom-control">
-    <span class="zoom zoom-far" (click)="onZoom('far')">region</span>
-    <span class="zoom zoom-mid" (click)="onZoom('mid')">city</span>
-    <span class="zoom zoom-near" (click)="onZoom('near')">street</span>
+    <span class="zoom zoom-far" (click)="onZoom(9)">region</span>
+    <span class="zoom zoom-mid" (click)="onZoom(12)">city</span>
+    <span class="zoom zoom-near" (click)="onZoom(15)">street</span>
 </div>

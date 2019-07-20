@@ -16,14 +16,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        &:hover, &:active{
-            color:black;
-          }
         &.zoom-far {
             border-right: 1px solid #eee;
         }
         &.zoom-near {
             border-left: 1px solid #eee;
+        }
+        &:focus {
+            background-color: #eee;
         }
     }
 }
@@ -41,10 +41,23 @@
     color: #555;
     font-size: .7em;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: line-through;
-    &.active {
-        text-decoration: none;
+    .follow-item {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:focus {
+            background-color: #eee;
+        }
+        &.follow-btn {
+            text-decoration: line-through;
+            &.active {
+                text-decoration: none;
+                background-color: #eee;
+            }
+        }
+        &.center-btn {
+            border-left: 1px solid #eee;
+        }
     }
 }
