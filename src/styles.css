@@ -7,8 +7,17 @@ html, body {
     font-family: sans-serif;
 }
 @media (max-width: 1200px) {
-    .leaflet-control-container {
+    .leaflet-control-attribution, .leaflet-control-zoom {
         display: none;
     }
+    .leaflet-bottom {
+        bottom: 80px !important;
+    }
+}
 
+.btn {
+    -webkit-tap-highlight-color: rgba(220, 220, 220, .4);
+}
+.btn:active {
+    background: rgba(220, 220, 220, .4)
 }

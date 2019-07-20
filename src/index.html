@@ -8,40 +8,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/6a69cdc53e.js"></script>
   <style>
     @keyframes pulse_animation {
-        0% { transform: scale(0); }
-        20% { transform: scale(0.4); }
-        30% { transform: scale(0.8); }
-        40% { transform: scale(1.2); }
-        50% { transform: scale(1.3); }
-        60% { transform: scale(1.2); }
-        70% { transform: scale(0.8); }
-        80% { transform: scale(0.4); }
-        100% { transform: scale(0); }
+        0% { transform: scale(1.0); }
+        20% { transform: scale(1.01); }
+        30% { transform: scale(1.02); }
+        40% { transform: scale(1.03); }
+        50% { transform: scale(1.05); }
+        60% { transform: scale(1.03); }
+        70% { transform: scale(1.02); }
+        80% { transform: scale(1.01); }
+        100% { transform: scale(1.0); }
     }
     .splash {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      padding: 20px;
-      text-align: center;
-      background: #e74c3c;
-      opacity: 0.3;
+      /* display: inline-block; */
+      /* width: 50px; */
+      /* height: 50px; */
+      /* padding: 20px; */
+      /* text-align: center; */
+      /* background: #e74c3c; */
+      font-family: sans-serif;
       text-decoration: none;
-      border-radius: 50%;
-
-
+      font-size: 2em;
+      font-weight: bold;;
+      color: #333;
     animation-name: pulse_animation;
-    animation-duration: 1000ms;
+    animation-duration: 500ms;
+    overflow: hidden;
     /* transform-origin:70% 70%; */
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     }
   </style>
 </head>
-<body style="height: 100%">
-  <app-root><div style="height: 100%; display: flex; justify-content: center; align-items: center;"><div class="splash"></div></div></app-root>
+<body style="height: 100%" ontouchstart="">
+  <app-root>
+    <div style="position: absolute; top: 0; bottom: 0; right: 0; left: 0; display: flex; justify-content: center; align-items: center;">
+      <div class="splash">CYCLEMOB</div>
+    </div>
+  </app-root>
   <script>
     // if('serviceWorker' in navigator) {
     //   navigator.serviceWorker

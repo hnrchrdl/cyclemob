@@ -15,6 +15,15 @@ export class MapComponent implements OnInit {
   zoom: number               // zoom binding
   layers: L.Layer[]          // layers binding
   fitBounds: L.LatLngBounds  // map bounds binding
+  map: L.Map;
+
+  altitude: number;
+  speed: number;
+  heading: number;
+  accuracy: number;
+  currPosition: L.LatLng;
+  positionMarkerLayer: L.Marker;
+  accuracyIndicatorLayer: L.Circle;
 
   constructor(private geolocationService: GeolocationService) { }
 
@@ -30,36 +39,73 @@ export class MapComponent implements OnInit {
       center: L.latLng({ lat: 50, lng: 15 })
     }
 
-    // set inital layers
     this.layers = []
 
-    // subscribe to location changes
-    this.geolocationService.location.subscribe((position) => {
-      // success
-      let { lat, lng, accuracy } = position
-      let currPosition = L.latLng({ lat, lng })
+    this.geolocationService.location.subscribe(({ latitude, longitude, accuracy, altitude, speed, heading }) => {
+      let currPosition = L.latLng({ lat: latitude, lng: longitude })
       this.center = currPosition        // center map
       this.showPosition(currPosition, accuracy)  // create layer
+      this.altitude = altitude ? Math.round(altitude) : null;
+      this.speed = speed ? Math.round(speed * 3.6 * 10) / 10 : 0.0;
+      this.heading = heading;
+      this.accuracy = accuracy;
+      this.currPosition = currPosition;
     })
 
     this.geolocationService.updateLocation();
-
   }
 
-  showPosition(pos: L.LatLng, accuracy: number) {
+  onMapReady = (map) => {
+    this.map = map;
+    L.control.scale({ imperial: false}).addTo(this.map);
+    this.map.on('zoomend', this.onZoomEnd)
+  }
 
-    let positionMarkerLayer = L.marker(pos, {
-      icon: L.icon({
-        iconUrl: 'assets/marker-icon.png',
-        shadowUrl: 'assets/marker-shadow.png',
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 41 ],
-      })
+  showPosition = (pos: L.LatLng, accuracy: number) => {
+
+    // const iconUrl = this.heading ? 'assets/icons/icon-arrow_40.png' : 'assets/marker-icon.png';
+    // const shadowUrl = this.heading ? null : 'assets/marker-shadow.png';
+    // const iconSize = this.heading ? [40, 40] : [ 25, 41 ];
+    // const iconAnchor = this.heading ?  [20, 20] : [ 13, 41 ];
+    const iconUrl = 'assets/marker-icon.png';
+    const shadowUrl = 'assets/marker-shadow.png';
+    const iconSize = [ 25, 41 ];
+    const iconAnchor = [ 13, 41 ];
+    const icon = L.icon({
+      iconUrl,
+      shadowUrl,
+      iconSize,
+      iconAnchor,
     });
-    let accuracyIndicatorLayer = L.circle(pos, { radius: accuracy })
 
-    this.layers = [positionMarkerLayer, accuracyIndicatorLayer]    // add layers to map
+    if(!this.positionMarkerLayer) {
+      this.positionMarkerLayer = L.marker(pos, {
+        icon
+      });
+      this.accuracyIndicatorLayer = L.circle(pos, { radius: accuracy })
 
+      this.layers = [this.positionMarkerLayer, this.accuracyIndicatorLayer];  // add layers to map
+    } else {
+      this.positionMarkerLayer.setLatLng(pos);
+      this.positionMarkerLayer.setIcon(icon);
+      this.accuracyIndicatorLayer.setLatLng(pos);
+      this.accuracyIndicatorLayer.setRadius(accuracy);
+      // console.log(this.positionMarkerLayer.getElement())
+      // if(this.heading != null) {
+      //   const element = this.positionMarkerLayer.getElement();
+      //   const origTransform = element.style.transform;
+      //   element.style.transform =  origTransform + ` rotate(${this.heading - 45}deg)`;
+      // }
+    }
+
+
+    // const arrowMarker = document.getElementsByClassName('.icon-arrow');
+    // if(arrowMarker.length) {
+    //   const transform = arrowMarker[0].style.transform;
+    //   const rotate = `rotate(${this.heading - 45}deg)`;
+    //   console.log('current', transform, 'rotate', rotate  )
+    //   arrowMarker[0].style.transform = transform + ' ' + rotate;
+    // }
   }
 
   onZoom = (level: number) => {
@@ -70,16 +116,26 @@ export class MapComponent implements OnInit {
     }
   }
 
-  onToggleFollow() {
+  onToggleFollow = () => {
+    if(this.isFollowing()) {
+      this.heading = null;
+      this.speed = null;
+      this.altitude = null;
+      this.showPosition(this.currPosition, this.accuracy)
+    }
     this.geolocationService.toggleWatch();
   }
 
-  isFollowing() {
+  isFollowing = () => {
     return Boolean(this.geolocationService.watcher);
   }
 
-  onCenter() {
+  onCenter = () => {
     this.geolocationService.updateLocation();
+  }
+
+  onZoomEnd = () => {
+    this.zoom = this.map.getZoom();
   }
 
 }

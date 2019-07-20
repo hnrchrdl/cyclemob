@@ -1,29 +1,38 @@
 import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs/Subject'
 
 @Injectable()
 export class GeolocationService {
 
 	location: any = new Subject()
-	watcher;
+	watcher: any;
+	updatingLocation = new Subject();
 
 	constructor() { }
 
-	watchPosition() {
-		this.watcher = navigator.geolocation.watchPosition(({coords, timestamp}) => {
-			// console.log(coords);
-			let { latitude: lat, longitude: lng, accuracy } = coords
-			this.location.next({lat, lng, accuracy});
+	watchPosition = () => {
+		if ("geolocation" in navigator) {
 
-			// cache nearby vector tiles if accuracy is within 10km
-			// if (!window['tilesCached'] && coords.accuracy <= window['cacheRadius']) {
-			// 	window['requestTiles'](window['tileSrc'], window['tileLayer'].createTile(coords), window['zoomRangeCache']);
-			// 	window['tilesCached'] = true;
-			//  }
-		})
+			let options = {
+				enableHighAccuracy: true
+			}
+			this.watcher = navigator.geolocation.watchPosition(({coords, timestamp}) => {
+				this.location.next(coords);
+
+				// cache nearby vector tiles if accuracy is within 10km
+				// if (!window['tilesCached'] && coords.accuracy <= window['cacheRadius']) {
+				// 	window['requestTiles'](window['tileSrc'], window['tileLayer'].createTile(coords), window['zoomRangeCache']);
+				// 	window['tilesCached'] = true;
+				//  }
+			}, (e) => {
+				console.error('Error watching position', e)
+			}, options)
+		} else {
+			alert('Your browser does not support geolocation')
+		}
 	}
 
-	clearWatch() {
+	clearWatch = () => {
 		if(this.watcher) {
 			// console.log('unwatch');
 			navigator.geolocation.clearWatch(this.watcher);
@@ -31,29 +40,26 @@ export class GeolocationService {
 		}
 	}
 
-  	updateLocation() {
-
+  	updateLocation = () => {
   		if ("geolocation" in navigator) {
-			/* geolocation is available */
+			  this.updatingLocation.next(true);
 			let options = {
 				enableHighAccuracy: true
 			}
-			navigator.geolocation.getCurrentPosition((position) => {
-				let { coords } = position
-				let { latitude: lat, longitude: lng, accuracy } = coords
-				this.location.next({lat, lng, accuracy})
-			}, (err) => {
-				alert('Error getting gelocation: ' + err)
+			navigator.geolocation.getCurrentPosition(({ coords, timestamp }) => {
+				this.location.next(coords);
+				this.updatingLocation.next(false);
+			}, (e) => {
+				alert('Error getting gelocation: ' + e);
+				this.updatingLocation.next(false);
 			}, options)
 
 		} else {
-			/* geolocation IS NOT available */
-
 			alert('Your browser does not support geolocation')
 		}
 	  }
 
-	  toggleWatch() {
+	  toggleWatch = () => {
 		  this.watcher ? this.clearWatch() : this.watchPosition();
 	  }
 
